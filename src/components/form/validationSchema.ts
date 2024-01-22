@@ -2,10 +2,10 @@ import * as Yup from 'yup';
 
 export const calculateSchema = Yup.object().shape({
   startingPrice: Yup.number()
-    .min(0, 'Starting Price must be greater than or equal to 0')
+    .moreThan(0, 'Starting Price must be greater than 0')
     .required('Starting Price is required'),
   initialCapital: Yup.number()
-    .min(0, 'Initial Capital must be greater than or equal to 0')
+    .moreThan(0, 'Initial Capital must be greater than 0')
     .required('Initial Capital is required'),
   additionalCapital: Yup.array().of(
     Yup.object().shape({
@@ -20,7 +20,6 @@ export const calculateSchema = Yup.object().shape({
   closingPrice: Yup.number()
     .min(0, 'Closing Price must be greater than or equal to 0')
     .required('Closing Price is required'),
-  closingDate: Yup.date().required('Closing Date is required'),
 });
 
 export default calculateSchema;
