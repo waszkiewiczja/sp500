@@ -1,6 +1,6 @@
-import InvestmentCalculator from "@/components/InvestmentCalculator";
+import InvestmentCalculator from '@/components/InvestmentCalculator';
 
-export default function Home() {
+export default function Home(): JSX.Element {
   return (
     <main>
       <InvestmentCalculator />

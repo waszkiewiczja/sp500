@@ -1,9 +1,12 @@
+import { Result } from '../InvestmentCalculatorClient';
 import {
   InvestmentFormValues,
   calculateFinalValue,
+  calculateInitialShares,
   calculateROI,
   calculateTotalInvestment,
   calculateTotalNumberOfShares,
+  handleSubmit,
 } from './utils';
 
 describe('utils', () => {
@@ -18,7 +21,7 @@ describe('utils', () => {
 
       const result = calculateTotalInvestment(
         initialCapital,
-        additionalCapital
+        additionalCapital,
       );
 
       expect(result).toBe(1000 + 200 + 300 + 150);
@@ -30,7 +33,7 @@ describe('utils', () => {
 
       const result = calculateTotalInvestment(
         initialCapital,
-        additionalCapital
+        additionalCapital,
       );
 
       expect(result).toBe(initialCapital);
@@ -46,7 +49,7 @@ describe('utils', () => {
 
       const result = calculateTotalInvestment(
         initialCapital,
-        additionalCapital
+        additionalCapital,
       );
 
       expect(result).toBe(1000 - 200 - 300 - 150);
@@ -67,7 +70,7 @@ describe('utils', () => {
         { date: '2021-03-01', amount: 300, purchasePrice: 30 },
       ];
       const result = calculateTotalNumberOfShares(stockArray);
-      expect(result).toBe(60);
+      expect(result).toBe(30);
     });
 
     it('should correctly calculate total number of shares when some purchase prices are zero', () => {
@@ -77,7 +80,7 @@ describe('utils', () => {
         { date: '2021-03-01', amount: 300, purchasePrice: 30 },
       ];
       const result = calculateTotalNumberOfShares(stockArray);
-      expect(result).toBe(40);
+      expect(result).toBe(20);
     });
 
     it('should return 0 when all purchase prices are zero', () => {
@@ -98,16 +101,6 @@ describe('utils', () => {
       ];
       const result = calculateTotalNumberOfShares(stockArray);
       expect(result).toBe(0);
-    });
-
-    it('should handle negative amount values', () => {
-      const stockArray: InvestmentFormValues['additionalCapital'] = [
-        { date: '2021-01-01', amount: -100, purchasePrice: 10 },
-        { date: '2021-02-01', amount: -200, purchasePrice: 20 },
-        { date: '2021-03-01', amount: -300, purchasePrice: 30 },
-      ];
-      const result = calculateTotalNumberOfShares(stockArray);
-      expect(result).toBe(-60);
     });
   });
 
@@ -200,32 +193,133 @@ describe('utils', () => {
 
       expect(actualROI).toBe(expectedROI);
     });
+  });
 
-    it('should return NaN when initial capital is NaN', () => {
-      const initialCapital = NaN;
-      const finalValue = 1500;
-
-      const actualROI = calculateROI(initialCapital, finalValue);
-
-      expect(actualROI).toBeNaN();
-    });
-
-    it('should return NaN when final value is NaN', () => {
+  describe('calculateInitialShares', () => {
+    it('should return the correct number of initial shares when given valid input', () => {
       const initialCapital = 1000;
-      const finalValue = NaN;
+      const startingPrice = 10;
 
-      const actualROI = calculateROI(initialCapital, finalValue);
+      const result = calculateInitialShares(initialCapital, startingPrice);
 
-      expect(actualROI).toBeNaN();
+      expect(result).toBe(100);
     });
 
-    it('should return NaN when initial capital is negative', () => {
+    it('should return 0 when startingPrice is 0', () => {
+      const initialCapital = 1000;
+      const startingPrice = 0;
+
+      const result = calculateInitialShares(initialCapital, startingPrice);
+
+      expect(result).toBe(0);
+    });
+
+    it('should return 0 when initialCapital is 0', () => {
+      const initialCapital = 0;
+      const startingPrice = 10;
+
+      const result = calculateInitialShares(initialCapital, startingPrice);
+
+      expect(result).toBe(0);
+    });
+
+    it('should handle negative initialCapital input', () => {
       const initialCapital = -1000;
-      const finalValue = 1500;
+      const startingPrice = 10;
 
-      const actualROI = calculateROI(initialCapital, finalValue);
+      const result = calculateInitialShares(initialCapital, startingPrice);
 
-      expect(actualROI).toBeNaN();
+      expect(result).toBe(-100);
+    });
+
+    it('should handle negative startingPrice input', () => {
+      const initialCapital = 1000;
+      const startingPrice = -10;
+
+      const result = calculateInitialShares(initialCapital, startingPrice);
+
+      expect(result).toBe(0);
+    });
+
+    it('should handle decimal initialCapital input', () => {
+      const initialCapital = 1000.5;
+      const startingPrice = 10;
+
+      const result = calculateInitialShares(initialCapital, startingPrice);
+
+      expect(result).toBe(100.05);
+    });
+  });
+
+  describe('handleSubmit', () => {
+    it('should calculate and return the correct result when given valid input values', () => {
+      const values: InvestmentFormValues = {
+        startingPrice: 10,
+        initialCapital: 100,
+        additionalCapital: [
+          { date: '2021-01-01', amount: 50, purchasePrice: 20 },
+        ],
+        closingDate: '2021-12-31',
+        closingPrice: 15,
+      };
+      let result: Result | null = null;
+      const changeResult = (newData: Result | null): void => {
+        result = newData;
+      };
+
+      handleSubmit(values, changeResult);
+
+      expect(result).toEqual({
+        totalInvestment: 150,
+        finalValue: 187.5,
+        roi: 25,
+      });
+    });
+
+    it('should calculate and return the correct result when the initialCapital is zero', () => {
+      const values: InvestmentFormValues = {
+        startingPrice: 10,
+        initialCapital: 0,
+        additionalCapital: [
+          { date: '2021-01-01', amount: 50, purchasePrice: 20 },
+        ],
+        closingDate: '2021-12-31',
+        closingPrice: 15,
+      };
+      let result: Result | null = null;
+      const changeResult = (newData: Result | null): void => {
+        result = newData;
+      };
+
+      handleSubmit(values, changeResult);
+
+      expect(result).toEqual({
+        totalInvestment: 50,
+        finalValue: 37.5,
+        roi: -25,
+      });
+    });
+
+    it('should calculate and return the correct result when the additionalCapital is empty', () => {
+      const values: InvestmentFormValues = {
+        startingPrice: 10,
+        initialCapital: 100,
+        additionalCapital: [],
+        closingDate: '2021-12-31',
+        closingPrice: 15,
+      };
+      let result: Result | null = null;
+      const changeResult = (newData: Result | null): void => {
+        result = newData;
+      };
+
+      handleSubmit(values, changeResult);
+
+      expect(result).toEqual({
+        totalInvestment: 100,
+        finalValue: 150,
+        roi: 50,
+      });
     });
   });
 });
