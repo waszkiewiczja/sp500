@@ -1,46 +1,16 @@
-import { Formik, FieldArray, Form, Field, ErrorMessage } from 'formik';
-import {
-  InvestmentFormValues,
-  calculateFinalValue,
-  calculateROI,
-  calculateTotalInvestment,
-  calculateTotalNumberOfShares,
-} from './utils';
+import { Formik, Form } from 'formik';
+import { handleSubmit } from './utils';
 import { Result } from '../InvestmentCalculatorClient';
 import calculateSchema from './validationSchema';
 import { InitialSection } from './InitialSection';
 import { ClosingSection } from './ClosingSection';
-import AddSection from './AddSection';
+import { AddSection } from './AddSection';
 
 type FormikDataPropsType = {
   changeResult: (newData: Result | null) => void;
 };
 
 export const FormikData: React.FC<FormikDataPropsType> = ({ changeResult }) => {
-  const handleSubmit = (values: InvestmentFormValues): void => {
-    const startingPrice = values.startingPrice;
-    const initialCapital = values.initialCapital;
-    const totalInvestment = calculateTotalInvestment(
-      values.initialCapital,
-      values.additionalCapital
-    );
-    const initialNumberOfShares = initialCapital / startingPrice;
-
-    const addedShares = calculateTotalNumberOfShares(values.additionalCapital);
-
-    const totalShares = initialNumberOfShares + addedShares;
-
-    const finalValue = calculateFinalValue(totalShares, values.closingPrice);
-
-    const roi = calculateROI(totalInvestment, finalValue);
-
-    changeResult({
-      totalInvestment,
-      finalValue,
-      roi,
-    });
-  };
-
   return (
     <Formik
       initialValues={{
@@ -50,7 +20,7 @@ export const FormikData: React.FC<FormikDataPropsType> = ({ changeResult }) => {
         closingDate: '',
         closingPrice: 0,
       }}
-      onSubmit={handleSubmit}
+      onSubmit={(values) => handleSubmit(values, changeResult)}
       validationSchema={calculateSchema}
     >
       {({ values, setFieldValue }) => (
