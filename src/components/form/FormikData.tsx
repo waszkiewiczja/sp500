@@ -8,6 +8,9 @@ import {
 } from './utils';
 import { Result } from '../InvestmentCalculatorClient';
 import calculateSchema from './validationSchema';
+import { InitialSection } from './InitialSection';
+import { ClosingSection } from './ClosingSection';
+import AddSection from './AddSection';
 
 type FormikDataPropsType = {
   changeResult: (newData: Result | null) => void;
@@ -50,185 +53,11 @@ export const FormikData: React.FC<FormikDataPropsType> = ({ changeResult }) => {
       onSubmit={handleSubmit}
       validationSchema={calculateSchema}
     >
-      {({ values, setFieldValue, errors, touched }) => (
+      {({ values, setFieldValue }) => (
         <Form className="grid gap-4">
-          <div className="flex space-x-10" data-testid="initialSection">
-            <div className="w-1/2  mb-4">
-              <label className="block text-sm font-semibold">
-                Initial Capital:
-              </label>
-              <Field
-                type="number"
-                name="initialCapital"
-                className="w-full border p-2"
-                onFocus={() => {
-                  if (values.initialCapital === 0) {
-                    setFieldValue('initialCapital', '');
-                  }
-                }}
-                onBlur={(e: React.FocusEvent<HTMLInputElement>) => {
-                  if (!e.target.value) {
-                    setFieldValue('initialCapital', 0);
-                  }
-                }}
-              />
-              <ErrorMessage
-                name="initialCapital"
-                component="div"
-                className="text-red-500"
-              />
-            </div>
-
-            <div className="w-1/2 mb-4">
-              <label className="block text-sm font-semibold">
-                Purchase Price:
-              </label>
-              <Field
-                type="number"
-                name="startingPrice"
-                className="w-full border p-2"
-                onFocus={() => {
-                  if (values.startingPrice === 0) {
-                    setFieldValue('startingPrice', '');
-                  }
-                }}
-              />
-              <ErrorMessage
-                name="startingPrice"
-                component="div"
-                className="text-red-500"
-              />
-            </div>
-          </div>
-
-          <div className="mb-4" data-testid="addSection">
-            <label className="block text-sm font-semibold">
-              Additional Capital:
-            </label>
-            <FieldArray name="additionalCapital">
-              {({ push, remove }) => (
-                <div className="grid">
-                  {values.additionalCapital.map((_, index) => (
-                    <div key={index} className="grid gap-4">
-                      <label className="block text-sm font-semibold mt-6">
-                        Date:
-                      </label>
-                      <Field
-                        type="date"
-                        name={`additionalCapital[${index}].date`}
-                        className="w-full border p-2"
-                      />
-                      <div className="flex space-x-10">
-                        <div className="w-1/2  mb-4">
-                          <label className="block text-sm font-semibold">
-                            Capital:
-                          </label>
-                          <Field
-                            type="number"
-                            name={`additionalCapital[${index}].amount`}
-                            className="w-full border p-2"
-                            onFocus={() => {
-                              if (
-                                values.additionalCapital[index].amount === 0
-                              ) {
-                                setFieldValue(
-                                  `additionalCapital[${index}].amount`,
-                                  ''
-                                );
-                              }
-                            }}
-                          />
-                          <ErrorMessage
-                            name={`additionalCapital[${index}].amount`}
-                            component="div"
-                            className="text-red-500"
-                          />
-                        </div>
-                        <div className="w-1/2  mb-4">
-                          <label className="block text-sm font-semibold">
-                            Purchase Price:
-                          </label>
-                          <Field
-                            type="number"
-                            name={`additionalCapital[${index}].purchasePrice`}
-                            className="w-full border p-2"
-                            onFocus={() => {
-                              if (
-                                values.additionalCapital[index]
-                                  .purchasePrice === 0
-                              ) {
-                                setFieldValue(
-                                  `additionalCapital[${index}].purchasePrice`,
-                                  ''
-                                );
-                              }
-                            }}
-                          />
-                          <ErrorMessage
-                            name={`additionalCapital[${index}].purchasePrice`}
-                            component="div"
-                            className="text-red-500"
-                          />
-                        </div>
-                      </div>
-
-                      <button
-                        type="button"
-                        onClick={() => remove(index)}
-                        className="bg-red-500 text-white px-3 py-2 rounded"
-                      >
-                        Remove
-                      </button>
-                      <hr></hr>
-                    </div>
-                  ))}
-                  <button
-                    type="button"
-                    onClick={() =>
-                      push({ date: '', amount: 0, purchasePrice: 0 })
-                    }
-                    className="bg-blue-500 text-white px-3 py-2 rounded mt-4"
-                  >
-                    Add More
-                  </button>
-                </div>
-              )}
-            </FieldArray>
-          </div>
-
-          <div className="flex space-x-10" data-testid="closingSection">
-            <div className="w-1/2 mb-4">
-              <label className="block text-sm font-semibold">
-                Closing Date:
-              </label>
-              <Field
-                type="date"
-                name="closingDate"
-                className="w-full border p-2"
-              />
-            </div>
-
-            <div className="w-1/2 mb-4">
-              <label className="block text-sm font-semibold">
-                Closing Price:
-              </label>
-              <Field
-                type="number"
-                name="closingPrice"
-                className="w-full border p-2"
-                onFocus={() => {
-                  if (values.closingPrice === 0) {
-                    setFieldValue('closingPrice', '');
-                  }
-                }}
-              />
-              <ErrorMessage
-                name="closingPrice"
-                component="div"
-                className="text-red-500"
-              />
-            </div>
-          </div>
+          <InitialSection values={values} setFieldValue={setFieldValue} />
+          <AddSection values={values} setFieldValue={setFieldValue} />
+          <ClosingSection values={values} setFieldValue={setFieldValue} />
 
           <button
             type="submit"

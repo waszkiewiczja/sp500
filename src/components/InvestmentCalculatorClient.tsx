@@ -10,7 +10,7 @@ export type Result = {
   roi: number;
 };
 
-const containerStyle = `max-w-2xl mx-auto p-4 border rounded-md shadow-md`;
+const containerStyle = `max-w-2xl mx-auto p-4 border rounded-md shadow-md mt-8`;
 
 const InvestmentCalculatorClient: React.FC = () => {
   const [result, setResult] = useState<Result | null>(null);
