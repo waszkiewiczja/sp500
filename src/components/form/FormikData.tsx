@@ -1,4 +1,4 @@
-import { Formik, FieldArray, Form, Field } from 'formik';
+import { Formik, FieldArray, Form, Field, ErrorMessage } from 'formik';
 import {
   InvestmentFormValues,
   calculateFinalValue,
@@ -7,6 +7,7 @@ import {
   calculateTotalNumberOfShares,
 } from './utils';
 import { Result } from '../InvestmentCalculatorClient';
+import calculateSchema from './validationSchema';
 
 type FormikDataPropsType = {
   changeResult: (newData: Result | null) => void;
@@ -47,8 +48,9 @@ export const FormikData: React.FC<FormikDataPropsType> = ({ changeResult }) => {
         closingPrice: 0,
       }}
       onSubmit={handleSubmit}
+      validationSchema={calculateSchema}
     >
-      {({ values, setFieldValue }) => (
+      {({ values, setFieldValue, errors, touched }) => (
         <Form className="grid gap-4">
           <div className="flex space-x-10" data-testid="initialSection">
             <div className="w-1/2  mb-4">
@@ -70,7 +72,13 @@ export const FormikData: React.FC<FormikDataPropsType> = ({ changeResult }) => {
                   }
                 }}
               />
+              <ErrorMessage
+                name="initialCapital"
+                component="div"
+                className="text-red-500"
+              />
             </div>
+
             <div className="w-1/2 mb-4">
               <label className="block text-sm font-semibold">
                 Purchase Price:
@@ -84,6 +92,11 @@ export const FormikData: React.FC<FormikDataPropsType> = ({ changeResult }) => {
                     setFieldValue('startingPrice', '');
                   }
                 }}
+              />
+              <ErrorMessage
+                name="startingPrice"
+                component="div"
+                className="text-red-500"
               />
             </div>
           </div>
@@ -125,6 +138,11 @@ export const FormikData: React.FC<FormikDataPropsType> = ({ changeResult }) => {
                               }
                             }}
                           />
+                          <ErrorMessage
+                            name={`additionalCapital[${index}].amount`}
+                            component="div"
+                            className="text-red-500"
+                          />
                         </div>
                         <div className="w-1/2  mb-4">
                           <label className="block text-sm font-semibold">
@@ -145,6 +163,11 @@ export const FormikData: React.FC<FormikDataPropsType> = ({ changeResult }) => {
                                 );
                               }
                             }}
+                          />
+                          <ErrorMessage
+                            name={`additionalCapital[${index}].purchasePrice`}
+                            component="div"
+                            className="text-red-500"
                           />
                         </div>
                       </div>
@@ -198,6 +221,11 @@ export const FormikData: React.FC<FormikDataPropsType> = ({ changeResult }) => {
                     setFieldValue('closingPrice', '');
                   }
                 }}
+              />
+              <ErrorMessage
+                name="closingPrice"
+                component="div"
+                className="text-red-500"
               />
             </div>
           </div>
