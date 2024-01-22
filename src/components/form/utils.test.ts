@@ -4,7 +4,7 @@ import {
   calculateROI,
   calculateTotalInvestment,
   calculateTotalNumberOfShares,
-} from './form/utils';
+} from './utils';
 
 describe('utils', () => {
   describe('calculateTotalInvestment', () => {
