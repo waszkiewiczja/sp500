@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { Results } from './Results';
-import { Result } from './InvestmentCalculatorClient';
+import { Result } from './InvestmentCalculator';
 
 describe('Results', () => {
   it('should not render results component when props in null', () => {

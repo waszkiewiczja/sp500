@@ -1,6 +1,6 @@
 import { Formik, Form } from 'formik';
 import { handleSubmit } from './utils';
-import { Result } from '../InvestmentCalculatorClient';
+import { Result } from '../InvestmentCalculator';
 import calculateSchema from './validationSchema';
 import { InitialSection } from './InitialSection';
 import { ClosingSection } from './ClosingSection';

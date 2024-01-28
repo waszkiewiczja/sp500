@@ -1,4 +1,4 @@
-import { Result } from '../InvestmentCalculatorClient';
+import { Result } from '../InvestmentCalculator';
 import {
   InvestmentFormValues,
   calculateFinalValue,
