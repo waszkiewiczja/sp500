@@ -1,4 +1,11 @@
-export const returnSinceYearData = [
+export type returnSinceType = {
+  since: number;
+  total: number;
+  years: number;
+  annualized: number;
+}[];
+
+export const returnSinceYearData: returnSinceType = [
   {
     since: 2023,
     total: 24.2,
@@ -150,65 +157,3 @@ export const returnSinceYearData = [
     annualized: 5.57,
   },
 ];
-
-export const options = {
-  indexAxis: 'y' as const,
-  elements: {
-    bar: {
-      borderWidth: 2,
-    },
-  },
-  responsive: true,
-  plugins: {
-    legend: {
-      display: false,
-      position: 'right' as const,
-    },
-    title: {
-      display: false,
-      text: 'Chart.js Horizontal Bar Chart',
-    },
-  },
-  scales: {
-    x: {
-      grid: {
-        lineWidth: 1,
-        color: 'rgb(100, 116, 139)',
-      },
-    },
-  },
-};
-
-export const green = 'rgb(124,195,5)';
-export const darkGreen = 'rgb(101 163 13)';
-export const red = 'rgb(246, 94,97)';
-export const darkRed = 'rgb(190 18 60)';
-
-export const data = {
-  labels: returnSinceYearData.map((data) => data.since),
-  datasets: [
-    {
-      label: 'S&P 500 including dividends [%]',
-      data: returnSinceYearData.map((data) => data.annualized),
-      borderColor: darkGreen,
-      backgroundColor: green,
-      datalabels: {
-        color: returnSinceYearData.map((data) =>
-          data.since ? 'green' : 'red',
-        ),
-        anchor: returnSinceYearData.map((data) =>
-          data.since ? 'end' : 'start',
-        ),
-        align: returnSinceYearData.map((data) =>
-          data.since ? 'right' : 'left',
-        ),
-      },
-    },
-    // {
-    //   label: 'Dataset 2',
-    //   data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-    //   borderColor: 'rgb(53, 162, 235)',
-    //   backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    // },
-  ],
-};
