@@ -11,7 +11,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { data, options } from './returnSinceYearData';
+import { data, options } from './returnSinceYearUtils';
 
 ChartJS.register(
   CategoryScale,
@@ -25,16 +25,12 @@ ChartJS.register(
 
 export const ReturnSinceYear: React.FC = () => {
   return (
-    <>
-      <div className="w-2/5 mx-auto text-3xl text-center font-bold mt-52 mb-52 ">
-        <h2>Annualized Returns [%]</h2>
-        <h3 className=" text-2xl font-semibold">
-          Return since beginning of the year to the end of 2023 [%]
-        </h3>
-        <Bar options={options} data={data} />
-
-        <h2>Value of $100 invested in year</h2>
-      </div>
-    </>
+    <div className="w-2/5 mx-auto text-3xl text-center font-bold mt-52 mb-52 ">
+      <h2>Annualized Returns [%]</h2>
+      <h3 className=" text-2xl font-semibold">
+        Return since beginning of each year to the end of 2023:
+      </h3>
+      <Bar options={options} data={data} />
+    </div>
   );
 };
