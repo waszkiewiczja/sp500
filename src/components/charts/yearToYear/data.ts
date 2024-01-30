@@ -5,11 +5,7 @@ export type YearData = {
 };
 
 export const yearlyData: YearData[] = [
-  {
-    year: 2023,
-    result: 26.29,
-    isPositive: true,
-  },
+  { year: 2023, result: 26.29, isPositive: true },
   { year: 2022, result: -18.11, isPositive: false },
   { year: 2021, result: 28.71, isPositive: true },
   { year: 2020, result: 18.4, isPositive: true },
