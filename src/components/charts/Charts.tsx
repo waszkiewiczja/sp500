@@ -5,7 +5,7 @@ import { StackedBarChart } from './steppedReturn/StackedBarChart';
 import { TopCompanies } from './topCompanies/TopCompanies';
 import { HundredReturn } from './hundredReturns/HundredReturns';
 import { MonthlyReturn } from './monthly/MonthlyReturn';
-import { MonthlyHeatmap } from './monthlyHeatmap/monthlyHeatmap';
+import { MonthlyHeatmap } from './monthlyHeatmap/MonthlyHeatmap';
 
 export const Charts: React.FC = () => {
   return (
