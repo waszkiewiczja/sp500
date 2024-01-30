@@ -1,9 +1,5 @@
+import { darkGreen, darkRed, green, red } from '../utils';
 import { yearlyData } from './data';
-
-export const green = 'rgb(124,195,5)';
-export const darkGreen = 'rgb(101 163 13)';
-export const red = 'rgb(246, 94,97)';
-export const darkRed = 'rgb(190 18 60)';
 
 export const options = {
   indexAxis: 'y' as const,
