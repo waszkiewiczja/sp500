@@ -1,6 +1,8 @@
 'use client';
 import React from 'react';
-import Chart from 'react-apexcharts';
+// import Chart from 'react-apexcharts';
+import dynamic from 'next/dynamic';
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 export const MonthlyHeatmap: React.FC = () => {
   const options = {
@@ -103,7 +105,10 @@ export const MonthlyHeatmap: React.FC = () => {
     <div className="w-2/5 mx-auto text-3xl text-center font-bold mt-52 mb-52 ">
       <h2>Monthly Return Heatmap [%]</h2>
       <h3 className=" text-2xl font-semibold">Return since 2022:</h3>
-      <Chart options={options} series={series} type="heatmap" />
+
+      {typeof window !== 'undefined' && (
+        <Chart options={options} series={series} type="heatmap" />
+      )}
     </div>
   );
 };
