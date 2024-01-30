@@ -5,7 +5,6 @@ import Chart from 'react-apexcharts';
 export const MonthlyHeatmap: React.FC = () => {
   const options = {
     chart: {
-      type: 'heatmap',
       toolbar: {
         show: true,
         tools: {
