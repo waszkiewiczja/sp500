@@ -7,7 +7,7 @@ import { data, options } from './stackedBarChartUtils';
 
 ChartJS.register(ChartDataLabels);
 
-const StackedBarChart: React.FC = () => {
+export const StackedBarChart: React.FC = () => {
   return (
     <div className="w-2/5 mx-auto text-3xl text-center font-bold mt-52 mb-52">
       <h2>Last 25 years - Return by year [%]</h2>
@@ -19,5 +19,3 @@ const StackedBarChart: React.FC = () => {
     </div>
   );
 };
-
-export default StackedBarChart;

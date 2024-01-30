@@ -1,4 +1,3 @@
-import { darkGreen, green } from '../utils';
 import { returnSinceYearData } from './data';
 
 export const options = {
@@ -35,12 +34,10 @@ export const data = {
     {
       label: 'S&P 500 including dividends [%]',
       data: returnSinceYearData.map((data) => data.annualized),
-      borderColor: darkGreen,
-      backgroundColor: green,
+      borderColor: 'blue',
+      backgroundColor: 'rgba(54, 162, 235, 0.8)',
       datalabels: {
-        color: returnSinceYearData.map((data) =>
-          data.since ? 'green' : 'red',
-        ),
+        color: returnSinceYearData.map((data) => (data.since ? 'blue' : 'red')),
         anchor: returnSinceYearData.map((data) =>
           data.since ? 'end' : 'start',
         ),

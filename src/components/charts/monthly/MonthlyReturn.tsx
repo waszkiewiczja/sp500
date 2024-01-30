@@ -11,7 +11,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { data, options } from './yearToYearUtils';
+import { data, options } from './monthlyReturnUtils';
 
 ChartJS.register(
   CategoryScale,
@@ -23,10 +23,10 @@ ChartJS.register(
   ChartDataLabels,
 );
 
-export const YearToYear: React.FC = () => {
+export const MonthlyReturn: React.FC = () => {
   return (
-    <div className="w-2/5 mx-auto text-3xl text-center font-bold mb-52 ">
-      <h2>S&P 500 Annual Returns [%]</h2>
+    <div className="w-2/5 mx-auto text-3xl text-center font-bold mt-52 mb-52">
+      <h2>S&P 500 Monthly Returns [%]</h2>
       <h3 className="text-2xl font-semibold">
         Since 1 January till 31 December:
       </h3>

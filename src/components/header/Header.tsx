@@ -9,7 +9,7 @@ export const Header: React.FC = () => {
   return (
     <header
       data-testid="header"
-      className="w-full bg-[#81dd27] flex justify-center mb-20 "
+      className="w-full bg-[#81dd27] flex justify-center mb-24 "
     >
       <div className="w-4/5 flex justify-between align-middle ">
         <div>
