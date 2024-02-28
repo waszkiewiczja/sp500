@@ -3,13 +3,13 @@ export const medianData = [
     range: 'Return -40 : -30%',
     howMany: 1,
     years: [2008],
-    data: [{ x: -35, y: 1, r: 8 }],
+    data: [{ x: -35, y: 1, r: 7 }],
   },
   {
     range: 'Return -30 : -20%',
     howMany: 1,
     years: [2002],
-    data: [{ x: -25, y: 1, r: 8 }],
+    data: [{ x: -25, y: 1, r: 7 }],
   },
   {
     range: 'Return -20 : -10%',
