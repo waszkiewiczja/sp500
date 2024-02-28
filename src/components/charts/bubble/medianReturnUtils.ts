@@ -1,4 +1,4 @@
-import { TooltipItem } from 'chart.js';
+import { ChartData, TooltipItem } from 'chart.js';
 import {
   range15color,
   range25color,
@@ -11,7 +11,7 @@ import {
 } from '../utils';
 import { medianData } from './data';
 
-export const data = {
+export const data: ChartData<'bubble'> = {
   datasets: [
     {
       label: medianData[0].range,
@@ -110,7 +110,6 @@ export const data = {
       backgroundColor: range35color,
       borderColor: 'black',
       borderWidth: 2,
-
       datalabels: {
         color: 'black',
         formatter: function (context: { r: number }): number {

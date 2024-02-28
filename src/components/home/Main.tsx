@@ -1,9 +1,9 @@
-import InvestmentCalculatorClient from './InvestmentCalculator';
+import { InvestmentCalculator } from './InvestmentCalculator';
 
 export const Main: React.FC = () => {
   return (
     <main data-testid="main">
-      <InvestmentCalculatorClient />
+      <InvestmentCalculator />
     </main>
   );
 };

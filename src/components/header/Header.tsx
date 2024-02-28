@@ -22,16 +22,23 @@ export const Header: React.FC = () => {
         </div>
 
         <div className="mr-8 flex items-center justify-center gap-6 text-lg font-semibold">
-          <Link className={pathname === '/' ? 'text-gray-800' : ''} href="/">
+          <Link className={pathname === '/' ? 'text-gray-500' : ''} href="/">
             Calculator
           </Link>
 
           <Link
-            className={pathname === '/charts' ? 'text-gray-800' : ''}
+            className={pathname === '/charts' ? 'text-gray-500' : ''}
             href="/charts"
           >
             Charts
           </Link>
+
+          {/* <Link
+            className={pathname === '/upside' ? 'text-gray-500' : ''}
+            href="/upside"
+          >
+            Upside
+          </Link> */}
         </div>
       </div>
     </header>
