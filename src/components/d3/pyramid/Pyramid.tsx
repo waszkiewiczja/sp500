@@ -12,9 +12,7 @@ export const Pyramid: React.FC = () => {
   const height = 400 - margin.top - margin.bottom;
 
   useEffect(() => {
-    const svgg = d3.select(svgRef.current);
-    // append the svg object to the body of the page
-    svgg.selectAll('*').remove();
+    d3.select(svgRef.current).selectAll('*').remove();
 
     const svg = d3
       .select(svgRef.current)

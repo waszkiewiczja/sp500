@@ -25,7 +25,7 @@ export const InvestmentCalculator: React.FC = () => {
       <CalculatorTitle />
       <FormikData changeResult={changeResult} />
       <Results result={result} />
-      <Strategy />
+      {/* <Strategy /> */}
     </div>
   );
 };
