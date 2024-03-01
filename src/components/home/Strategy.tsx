@@ -1,4 +1,3 @@
-const containerStyle = `max-w-2xl mx-auto p-4 border rounded-md shadow-md mt-8`;
 const stockDatabase = [
   'UAL',
   'WBD',
@@ -59,6 +58,16 @@ export const Strategy: React.FC = () => {
       : `false ${[...uniqueChild1Elements, ...uniqueChild2Elements]}`;
   };
 
+  const compareLength = ({
+    forSell,
+    forBuy,
+  }: {
+    forSell: string[];
+    forBuy: string[];
+  }): string => {
+    return forSell.length === forBuy.length ? 'true' : 'false';
+  };
+
   const toSellAll = ({
     oldArray,
     newArray,
@@ -92,34 +101,6 @@ export const Strategy: React.FC = () => {
   };
 
   const oldArray = [
-    'UAL',
-    'WBD',
-    'HAL',
-    'NVDA',
-    'MRO',
-    'FSLR',
-    'BG',
-    'SLB',
-    'CZR',
-    'BIO',
-    'LVS',
-    'DAL',
-    'APA',
-    'LKQ',
-    'HUM',
-    'EG',
-    'FOX',
-    'ALB',
-    'ACGL',
-    'APTV',
-    'GM',
-    'CTRA',
-    'XOM',
-    'ADM',
-    'TRGP',
-  ];
-
-  const newArray = [
     'FSLR',
     'UAL',
     'WBD',
@@ -143,12 +124,44 @@ export const Strategy: React.FC = () => {
     'CTVA',
     'EQT',
     'BIIB',
-    'LVY',
+    'LYV',
     'TRGP',
+  ];
+
+  const newArray = [
+    'WBD',
+    'FSLR',
+    'AES',
+    'PODD',
+    'NEM',
+    'SLB',
+    'APA',
+    'MRNA',
+    'UAL',
+    'BIIB',
+    'BKR',
+    'BRK-B',
+    'CZR',
+    'HAL',
+    'APTV',
+    'CCL',
+    'CHTR',
+    'INCY',
+    'BIO',
+    'FOX',
+    'DXCM',
+    'BA',
+    'GEN',
+    'MGM',
+    'DAL',
   ];
   console.log(
     'isNewDataCorrect',
     isNewDataCorrect({ child1: oldArray, child2: newArray }),
+    compareLength({
+      forSell: toSellAll({ oldArray: oldArray, newArray: newArray }),
+      forBuy: toBuyAll({ oldArray: oldArray, newArray: newArray }),
+    }),
   );
 
   console.log(
@@ -156,11 +169,19 @@ export const Strategy: React.FC = () => {
     toSellAll({ oldArray: oldArray, newArray: newArray }),
   );
   console.log('toBuyAll', toBuyAll({ oldArray: oldArray, newArray: newArray }));
+
   return (
-    <div className={containerStyle} data-testid="strategy">
+    <div
+      className="max-w-2xl mx-auto p-4 border rounded-md shadow-md mt-8"
+      data-testid="strategy"
+    >
       <p>
         isNewDataCorrect:{' '}
-        {isNewDataCorrect({ child1: oldArray, child2: newArray })}{' '}
+        {/* {isNewDataCorrect({ child1: oldArray, child2: newArray })}{' '} */}
+        {compareLength({
+          forSell: toSellAll({ oldArray: oldArray, newArray: newArray }),
+          forBuy: toBuyAll({ oldArray: oldArray, newArray: newArray }),
+        })}
       </p>
       <br></br>
       <p>

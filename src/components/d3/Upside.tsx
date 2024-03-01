@@ -3,6 +3,7 @@ import { BasicCircle } from './just-circle/BasicCircle';
 import { BasicBarchart } from './bar/BasicBarchart';
 import { StockHeatmap } from './heatmap/StockHeatmap';
 import { Pyramid } from './pyramid/Pyramid';
+import { Stacked } from './stacked-bar/Stacked';
 
 export const Upside: React.FC = () => {
   return (
@@ -11,7 +12,8 @@ export const Upside: React.FC = () => {
       {/* <BasicCircle /> */}
       <BasicBarchart />
       {/* <StockHeatmap /> */}
-      <Pyramid />
+      {/* <Pyramid /> */}
+      {/* <Stacked /> */}
     </main>
   );
 };
