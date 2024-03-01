@@ -13,7 +13,7 @@ export const Upside: React.FC = () => {
       <BasicBarchart />
       {/* <StockHeatmap /> */}
       {/* <Pyramid /> */}
-      <Stacked />
+      {/* <Stacked /> */}
     </main>
   );
 };
